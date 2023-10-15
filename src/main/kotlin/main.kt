@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
     println(countComission(75_000, "Maestro", 0))
 }
 
+// First task
 fun agoToText(seconds: Int): String  = when(seconds) {
     in 0 ..60 -> "был(а) только что"
     in 61 .. 60 * 60  -> countMinutes(seconds)
@@ -42,6 +43,8 @@ fun countHours(seconds: Int): String {
         else -> "был(а) $hours часов назад"
     }
 }
+
+// Second task
 
 fun countComission(amount: Int, cardType: String = "VK Pay", previousSum: Int = 0): Int = when(cardType) {
     "VK Pay" -> 0
