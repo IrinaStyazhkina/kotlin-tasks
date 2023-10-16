@@ -54,4 +54,9 @@ class MainKtTest {
         val result = countComission(amount)
         assertEquals("Comission with default values",0, result)
     }
+
+    @Test
+    fun failTest() {
+        assertTrue(false)
+    }
 }
