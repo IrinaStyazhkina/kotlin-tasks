@@ -46,11 +46,16 @@ fun countHours(seconds: Int): String {
 
 // Second task
 
-fun countComission(amount: Int, cardType: String = "VK Pay", previousSum: Int = 0): Int = when(cardType) {
-    "VK Pay" -> 0
-    "Visa" -> countVisaAndMirComission(amount)
-    "Мир" -> countVisaAndMirComission(amount)
-    else -> countMaestroAndMasterCardComission(amount, previousSum)
+fun countComission(amount: Int, cardType: String = "VK Pay", previousSum: Int = 0): Int {
+    if(!isLimitNotExceeded(amount, cardType, previousSum)) {
+        println("Вы превысили лимиты")
+        return 0
+    }
+    return when (cardType) {
+        "VK Pay" -> 0
+        "Visa", "Мир" -> countVisaAndMirComission(amount)
+        else -> countMaestroAndMasterCardComission(amount, previousSum)
+    }
 }
 
 fun countVisaAndMirComission(amount: Int): Int {
@@ -77,4 +82,18 @@ fun countMaestroAndMasterCardComission(amount: Int, previousSum: Int = 0): Int {
         amount <= monthLimit -> 0
         else -> Math.round((amount - monthLimit) * comissionPercent / 100).toInt() + fixedComission
     }
+}
+
+fun isLimitNotExceeded(amount: Int, cardType: String = "VK Pay", previousSum: Int = 0): Boolean {
+    val vkOnceLimit = 15000
+    val vkMonthLimit = 40000
+
+    val otherCardsOnceLimit = 150000
+    val otherCardsMonthLimit = 600000
+
+    if(cardType == "VK Pay") {
+        return (amount <= vkOnceLimit) && (previousSum + amount <= vkMonthLimit)
+    }
+
+    return (amount <= otherCardsOnceLimit) && (previousSum + amount <= otherCardsMonthLimit)
 }
