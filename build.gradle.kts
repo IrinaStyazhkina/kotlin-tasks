@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.0"
+    jacoco
     application
 }
 
@@ -10,6 +11,9 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    testImplementation("junit:junit:4.13.2")
+}
 
 
 kotlin {
