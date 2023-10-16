@@ -55,8 +55,8 @@ class MainKtTest {
         assertEquals("Comission with default values",0, result)
     }
 
-    @Test
-    fun failTest() {
-        assertTrue(false)
-    }
+    //@Test
+    //fun failTest() {
+    //    assertTrue(false)
+    //}
 }
